@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer with Incrementing Value</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #value {
+            font-size: 3rem;
+            margin: 20px 0;
+        }
+        #regularTimer {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+        button {
+            font-size: 1.2rem;
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .start {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .stop {
+            background-color: #f44336;
+            color: white;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ken Griffin Earnings Counter</h1>
+    Ken Griffin, the CEO of Citadel, made 4.1 billion dollars in 2022.<br>This timer counts up how much money Ken Griffin is making as you watch.
+    <div id="value">$0</div>
+    <div id="regularTimer">0 days 00:00:00</div>
+    <button class="start" id="startButton">Start</button>
+    <button class="stop" id="stopButton" disabled>Stop</button>
+
+    <script>
+        let value = 0;
+        let intervalId = null;
+        let regularTimerId = null;
+        let elapsedSeconds = 0;
+        const valueDisplay = document.getElementById('value');
+        const regularTimerDisplay = document.getElementById('regularTimer');
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+
+        function startTimer() {
+            if (!intervalId) {
+                intervalId = setInterval(() => {
+                    value += 13.00101471;
+                    valueDisplay.textContent = `$${value.toFixed(2).toLocaleString()}`;
+                }, 100);
+
+                regularTimerId = setInterval(() => {
+                    elapsedSeconds++;
+                    const days = String(Math.floor(elapsedSeconds / 86400));
+                    const hours = String(Math.floor((elapsedSeconds % 86400) / 3600)).padStart(2, '0');
+                    const minutes = String(Math.floor((elapsedSeconds % 3600) / 60)).padStart(2, '0');
+                    const seconds = String(elapsedSeconds % 60).padStart(2, '0');
+                    regularTimerDisplay.textContent = `${days} days ${hours}:${minutes}:${seconds}`;
+                }, 100);
+
+                startButton.disabled = true;
+                stopButton.disabled = false;
+            }
+        }
+
+        function stopTimer() {
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+            if (regularTimerId) {
+                clearInterval(regularTimerId);
+                regularTimerId = null;
+            }
+            startButton.disabled = false;
+            stopButton.disabled = true;
+        }
+
+        startButton.addEventListener('click', startTimer);
+        stopButton.addEventListener('click', stopTimer);
+    </script>
+</body>
+</html>
