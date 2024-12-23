@@ -72,7 +72,7 @@
                     const minutes = String(Math.floor((elapsedSeconds % 3600) / 60)).padStart(2, '0');
                     const seconds = String(elapsedSeconds % 60).padStart(2, '0');
                     regularTimerDisplay.textContent = `${days} days ${hours}:${minutes}:${seconds}`;
-                }, 100);
+                }, 1000);
 
                 startButton.disabled = true;
                 stopButton.disabled = false;
