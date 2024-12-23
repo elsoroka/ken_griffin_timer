@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timer with Incrementing Value</title>
+    <title>Ken Griffin Earnings Counter</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,8 +62,12 @@
             if (!intervalId) {
                 intervalId = setInterval(() => {
                     value += 13.00101471;
-                    valueDisplay.textContent = `$${value.toFixed(2).toLocaleString()}`;
-                }, 100);
+                    valueDisplay.textContent = `$${value.toLocaleString(undefined,
+		    {
+			  minimumFractionDigits: 2,
+			  maximumFractionDigits: 2
+		    })}`;
+		}, 100);
 
                 regularTimerId = setInterval(() => {
                     elapsedSeconds++;
